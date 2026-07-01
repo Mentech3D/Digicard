@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arpit Patel – Mentech3D</title>
+<meta name="description" content="Connect with Arpit Patel, Founder of Mentech3D. Premium 3D Printed NFC Business Cards made in India.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #0A0A0A;
+    --surface:   rgba(255,255,255,0.05);
+    --border:    rgba(255,255,255,0.08);
+    --orange:    #FF6B2B;
+    --orange-dim: rgba(255,107,43,0.15);
+    --white:     #FFFFFF;
+    --muted:     rgba(255,255,255,0.45);
+    --card-bg:   rgba(255,255,255,0.04);
+    --radius:    16px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg);
+    color: var(--white);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0 48px;
+  }
+
+  /* ── Top bar ── */
+  .topbar {
+    width: 100%;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .topbar-logo {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .topbar-logo span { color: var(--orange); }
+
+  /* ── Card wrapper ── */
+  .card {
+    width: 100%;
+    max-width: 420px;
+    padding: 0 16px;
+    margin-top: 32px;
+  }
+
+  /* ── Hero: avatar + name ── */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 18px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .avatar-wrap {
+    position: relative;
+    width: 96px;
+    height: 96px;
+  }
+
+  /* Rotating NFC ring */
+  .avatar-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: var(--orange);
+    border-right-color: var(--orange);
+    animation: spin 3s linear infinite;
+  }
+  .avatar-wrap::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid var(--orange-dim);
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    background: #1E1E1E;
+    /* placeholder gradient */
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+  }
+
+  /* Avatar placeholder initials */
+  .avatar-placeholder {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1E1E1E, #2A2A2A);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--orange);
+    letter-spacing: -1px;
+  }
+
+  .hero-name {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.3px;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: -6px;
+  }
+  .hero-role {
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .hero-company {
+    font-size: 13px;
+    color: var(--orange);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  /* Company logo chip */
+  .company-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--orange-dim);
+    border: 1px solid rgba(255,107,43,0.25);
+    border-radius: 100px;
+    padding: 6px 14px 6px 8px;
+    margin-top: 2px;
+  }
+  .company-chip-logo {
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    background: var(--orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+  .company-chip-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--orange);
+  }
+
+  /* ── Action buttons ── */
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px 16px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    transition: transform 0.15s, opacity 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn:active { transform: scale(0.97); opacity: 0.85; }
+
+  .btn-primary {
+    background: var(--orange);
+    color: #fff;
+    grid-column: span 2;
+    padding: 15px;
+    font-size: 15px;
+    border-radius: 14px;
+  }
+
+  .btn-secondary {
+    background: var(--card-bg);
+    color: var(--white);
+    border: 1px solid var(--border);
+  }
+
+  .btn-whatsapp {
+    background: rgba(37,211,102,0.12);
+    color: #25D366;
+    border: 1px solid rgba(37,211,102,0.2);
+  }
+
+  /* ── Section label ── */
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 28px 0 12px;
+  }
+
+  /* ── Link list ── */
+  .link-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .link-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.15s, border-color 0.15s, transform 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .link-item:hover, .link-item:active {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.14);
+    transform: translateX(2px);
+  }
+
+  .link-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 17px;
+  }
+
+  .link-icon.call    { background: rgba(52,199,89,0.15);   }
+  .link-icon.email   { background: rgba(255,159,10,0.12);  }
+  .link-icon.web     { background: rgba(10,132,255,0.12);  }
+  .link-icon.insta   { background: rgba(193,53,132,0.15);  }
+  .link-icon.linkedin{ background: rgba(10,102,194,0.15);  }
+
+  .link-label {
+    flex: 1;
+  }
+  .link-sublabel {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-top: 1px;
+  }
+
+  .link-arrow {
+    color: var(--muted);
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  /* ── Save contact strip ── */
+  .save-strip {
+    margin-top: 24px;
+    padding: 16px;
+    background: var(--orange-dim);
+    border: 1px solid rgba(255,107,43,0.2);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .save-strip:hover { background: rgba(255,107,43,0.22); }
+
+  .save-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .save-text strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--orange);
+  }
+  .save-text span {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+    display: block;
+  }
+  .save-strip .link-arrow { margin-left: auto; color: var(--orange); }
+
+  /* ── QR section ── */
+  .qr-section {
+    margin-top: 24px;
+    padding: 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+  }
+  .qr-box {
+    width: 120px;
+    height: 120px;
+    background: #fff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: #aaa;
+    padding: 8px;
+  }
+  .qr-box svg {
+    width: 100%;
+    height: 100%;
+  }
+  .qr-label {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .qr-label strong {
+    display: block;
+    font-size: 14px;
+    color: var(--white);
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    margin-top: 36px;
+    text-align: center;
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.04em;
+  }
+  .footer a {
+    color: var(--orange);
+    text-decoration: none;
+    opacity: 0.7;
+  }
+
+  /* ── Reduced motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    .avatar-wrap::before { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <span class="topbar-logo">Powered by <span>Mentech3D</span></span>
+</nav>
+
+<main class="card">
+
+  <!-- Hero -->
+  <section class="hero">
+
+    <div class="avatar-wrap">
+      <div class="avatar-placeholder">AP</div>
+    </div>
+
+    <div>
+      <h1 class="hero-name">Arpit Patel</h1>
+      <div class="hero-meta">
+        <span class="hero-role">Founder, Mentech3D</span>
+      </div>
+      <div class="company-chip" style="margin-top:10px;">
+        <div class="company-chip-logo">M3</div>
+        <span class="company-chip-name">Mentech3D</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Primary actions -->
+  <div class="actions">
+    <a href="tel:+919099914138" class="btn btn-primary">
+      📞 &nbsp;Call Now
+    </a>
+    <a href="https://wa.me/919099914138" class="btn btn-whatsapp">
+      💬 &nbsp;WhatsApp
+    </a>
+    <a href="mailto:hello@mentech3d.com" class="btn btn-secondary">
+      ✉️ &nbsp;Email
+    </a>
+  </div>
+
+  <!-- Links -->
+  <p class="section-label">Connect</p>
+
+  <div class="link-list">
+
+    <a href="https://mentech3d.com" class="link-item">
+      <div class="link-icon web">🌐</div>
+      <span class="link-label">
+        mentech3d.com
+        <span class="link-sublabel">Website</span>
+      </span>
+      <span class="link-arrow">›</span>
+    </a>
+
+    <a href="https://instagram.com/mentech3d" class="link-item">
+      <div class="link-icon insta">📸</div>
+      <span class="link-label">
+        @mentech3d
+        <span class="link-sublabel">Instagram</span>
+      </span>
+      <span class="link-arrow">›</span>
+    </a>
+
+  </div>
+
+  <!-- Save Contact -->
+  <a href="contact.vcf" download="Arpit_Patel_Mentech3D.vcf" class="save-strip">
+    <div class="save-icon">👤</div>
+    <div class="save-text">
+      <strong>Save Contact</strong>
+      <span>Add to your phone contacts</span>
+    </div>
+    <span class="link-arrow">›</span>
+  </a>
+
+  <!-- QR Code -->
+  <div class="qr-section">
+    <div class="qr-box">
+      <!-- Placeholder QR pattern using SVG -->
+      <svg viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+        <rect width="21" height="21" fill="white"/>
+        <!-- Top-left finder -->
+        <rect x="0" y="0" width="7" height="7" fill="#000"/>
+        <rect x="1" y="1" width="5" height="5" fill="#fff"/>
+        <rect x="2" y="2" width="3" height="3" fill="#000"/>
+        <!-- Top-right finder -->
+        <rect x="14" y="0" width="7" height="7" fill="#000"/>
+        <rect x="15" y="1" width="5" height="5" fill="#fff"/>
+        <rect x="16" y="2" width="3" height="3" fill="#000"/>
+        <!-- Bottom-left finder -->
+        <rect x="0" y="14" width="7" height="7" fill="#000"/>
+        <rect x="1" y="15" width="5" height="5" fill="#fff"/>
+        <rect x="2" y="16" width="3" height="3" fill="#000"/>
+        <!-- Data dots (decorative) -->
+        <rect x="8" y="0" width="1" height="1" fill="#000"/>
+        <rect x="10" y="0" width="1" height="1" fill="#000"/>
+        <rect x="9" y="2" width="1" height="1" fill="#000"/>
+        <rect x="11" y="1" width="1" height="1" fill="#000"/>
+        <rect x="8" y="4" width="1" height="1" fill="#000"/>
+        <rect x="10" y="3" width="1" height="1" fill="#000"/>
+        <rect x="12" y="4" width="1" height="1" fill="#000"/>
+        <rect x="8" y="6" width="1" height="1" fill="#000"/>
+        <rect x="10" y="6" width="2" height="1" fill="#000"/>
+        <rect x="7" y="8" width="1" height="1" fill="#000"/>
+        <rect x="9" y="8" width="1" height="1" fill="#000"/>
+        <rect x="11" y="8" width="1" height="1" fill="#000"/>
+        <rect x="13" y="8" width="1" height="1" fill="#000"/>
+        <rect x="0" y="8" width="1" height="1" fill="#000"/>
+        <rect x="2" y="8" width="1" height="1" fill="#000"/>
+        <rect x="4" y="8" width="1" height="1" fill="#000"/>
+        <rect x="6" y="8" width="1" height="1" fill="#000"/>
+        <rect x="8" y="9" width="1" height="1" fill="#000"/>
+        <rect x="10" y="10" width="1" height="1" fill="#000"/>
+        <rect x="12" y="9" width="1" height="1" fill="#000"/>
+        <rect x="14" y="10" width="1" height="1" fill="#000"/>
+        <rect x="16" y="8" width="1" height="1" fill="#000"/>
+        <rect x="18" y="9" width="1" height="1" fill="#000"/>
+        <rect x="20" y="8" width="1" height="1" fill="#000"/>
+        <rect x="7" y="11" width="2" height="1" fill="#000"/>
+        <rect x="11" y="12" width="1" height="1" fill="#000"/>
+        <rect x="9" y="13" width="2" height="1" fill="#000"/>
+        <rect x="13" y="11" width="1" height="1" fill="#000"/>
+        <rect x="15" y="12" width="2" height="1" fill="#000"/>
+        <rect x="19" y="11" width="2" height="1" fill="#000"/>
+        <rect x="8" y="14" width="1" height="1" fill="#000"/>
+        <rect x="10" y="15" width="1" height="1" fill="#000"/>
+        <rect x="12" y="14" width="1" height="1" fill="#000"/>
+        <rect x="8" y="17" width="1" height="1" fill="#000"/>
+        <rect x="10" y="18" width="1" height="1" fill="#000"/>
+        <rect x="12" y="17" width="1" height="1" fill="#000"/>
+        <rect x="14" y="14" width="1" height="1" fill="#000"/>
+        <rect x="14" y="16" width="1" height="1" fill="#000"/>
+        <rect x="16" y="15" width="1" height="1" fill="#000"/>
+        <rect x="18" y="14" width="1" height="1" fill="#000"/>
+        <rect x="20" y="15" width="1" height="1" fill="#000"/>
+        <rect x="19" y="17" width="2" height="1" fill="#000"/>
+        <rect x="17" y="19" width="2" height="1" fill="#000"/>
+        <rect x="15" y="20" width="1" height="1" fill="#000"/>
+        <rect x="9" y="20" width="1" height="1" fill="#000"/>
+        <rect x="11" y="19" width="1" height="1" fill="#000"/>
+      </svg>
+    </div>
+    <div class="qr-label">
+      <strong>Scan to share</strong>
+      Share your card without NFC
+    </div>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <p>Get your own NFC card at <a href="https://mentech3d.com">mentech3d.com</a></p>
+</footer>
+
+</body>
+</html>
